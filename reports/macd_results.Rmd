@@ -1,0 +1,54 @@
+---
+title: "MACD results explorer"
+output: html_document
+date: "2022-10-26"
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+data = read.csv(here::here("results", "macd_results.csv"))
+```
+
+
+```{r fs, echo=FALSE}
+inputPanel(
+  varSelectInput("facet_variable", "Facet Variable:", data, selected = "referenceID"),
+  varSelectInput("color_variable", "Color Variable", data, selected = "taxa")
+)
+
+
+renderPlot({
+  # hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
+  #      xlab = "Duration (minutes)", main = "Geyser eruption duration")
+  # 
+  # dens <- density(faithful$eruptions, adjust = input$bw_adjust)
+  # lines(dens, col = "blue")
+  # 
+  ggplot(data, aes(experiment, fs_percentile, color = !!input$color_variable)) +
+    geom_point() +
+    facet_wrap(vars(!!input$facet_variable))
+})
+```
+
+
+```{r mete, echo=FALSE}
+inputPanel(
+  varSelectInput("facet_variable", "Facet Variable:", data, selected = "referenceID"),
+  varSelectInput("color_variable", "Color Variable", data, selected = "taxa")
+)
+
+renderPlot({
+  # hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
+  #      xlab = "Duration (minutes)", main = "Geyser eruption duration")
+  # 
+  # dens <- density(faithful$eruptions, adjust = input$bw_adjust)
+  # lines(dens, col = "blue")
+  # 
+  ggplot(data, aes(experiment, mete_percentile, color = !!input$color_variable)) +
+    geom_point() +
+    facet_wrap(vars(!!input$facet_variable))
+})
+```
+

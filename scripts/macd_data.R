@@ -20,3 +20,11 @@ macd_outputs <- lapply(macd_sads, full_workflow)
 macd_results <- dplyr::bind_rows(macd_outputs, .id = "siteID")
 
 save.image("macd_output.RData")
+
+macd_pairing <- read.csv(here::here("data", "macd", "experiments_analysis_data.csv"))
+
+macd_experi_results <- macd_pairing %>%
+  mutate(siteID = as.character(siteID)) %>%
+  right_join(macd_results)
+
+write.csv(macd_experi_results, here::here("results", "macd_results.csv"))
