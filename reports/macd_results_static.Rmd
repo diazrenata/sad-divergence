@@ -1,0 +1,31 @@
+---
+title: "MACD results explorer"
+output: github_document
+date: "2022-10-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.dim =c (8,7))
+library(ggplot2)
+theme_set(theme_bw())
+data = read.csv(here::here("results", "macd_results.csv"))
+```
+
+
+```{r fs, echo=FALSE}
+
+  ggplot(data, aes(experiment, fs_percentile, color = taxa)) +
+    geom_point() +
+    facet_wrap(vars(referenceID))
+
+```
+
+
+```{r mete, echo=FALSE}
+
+  ggplot(data, aes(experiment, mete_percentile, color = taxa)) +
+    geom_point() +
+    facet_wrap(vars(referenceID))
+
+```
+
