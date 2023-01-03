@@ -1,0 +1,37 @@
+---
+title: "portal"
+output: github_document
+date: "2023-01-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.dim =c (8,7))
+library(dplyr)
+library(ggplot2)
+theme_set(theme_bw())
+data = read.csv(here::here("results", "portal_rodent_results.csv"))
+
+data <- data %>% mutate(month = ifelse(substr(siteID, 0, 1) == "w", "01", "08"),
+                        year = (substr(siteID, 7, 11)),
+                        day = "01") %>%
+  mutate(date = paste(year, month, day, sep = "-")) %>%
+  mutate(date =as.Date(date))
+```
+
+
+```{r fs, echo=FALSE}
+
+  ggplot(data, aes(date, fs_percentile)) +
+    geom_line() 
+
+```
+
+
+```{r mete, echo=FALSE}
+
+  ggplot(data, aes(date, mete_percentile)) +
+    geom_line()
+
+```
+
+

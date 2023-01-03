@@ -153,6 +153,11 @@ extract_sad <- function(macd_site, macd_data) {
   
   sad <- macd_data[macd_data$siteID == macd_site, "abundance"]
   
+  if(mode(sad) == "list") {
+    
+    sad <- sad[[1]]
+  }
+  
   if(all.equal(sad, round(sad)) == TRUE) {
     return(sad)
   }
