@@ -9,7 +9,7 @@ library(tarchetypes) # Load other packages as needed. # nolint
 library(tibble)
 # Set target options:
 tar_option_set(
-  packages = c("tibble", "readr", "here"), # packages that your targets need to run
+  packages = c("tibble", "readr", "here", "dplyr"), # packages that your targets need to run
   format = "rds" # default storage format
   # Set other options as needed.
 )
@@ -24,10 +24,12 @@ options(clustermq.scheduler = "multiprocess")
 #tar_source()
 source(here::here("plants_targets", "R", "wf.R")) # Source other scripts as needed. # nolint
 
-data_files <- tibble(filename = list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = T)[1:12],
-                     tarname = stringr::str_remove(list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = F), ".csv")[1:12])
+nsites <- 50
 
-targets <- tarchetypes::tar_map(
+data_files <- tibble(filename = list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = T)[1:nsites],
+                     tarname = stringr::str_remove(list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = F), ".csv")[1:nsites])
+
+targets1 <- tarchetypes::tar_map(
   values = data_files,
   tar_target(dat, read.csv(filename)),
   tar_target(
@@ -37,3 +39,7 @@ targets <- tarchetypes::tar_map(
   names = tarname
 )
 
+targets2 <- tarchetypes::tar_combine(name = all_analyses, targets1$analysis, command = bind_rows(!!!.x))
+
+
+list(targets1, targets2)
