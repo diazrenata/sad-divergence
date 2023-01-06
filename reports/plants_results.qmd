@@ -1,0 +1,54 @@
+---
+title: "Plants results"
+format: html
+---
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(targets)
+
+tar_load(names = "all_analyses", store = here::here("_targets"))
+
+all_analyses <- all_analyses %>%
+  mutate(treatment = substr(siteID, nchar(siteID), nchar(siteID)),
+         season = ifelse(grepl("summer", siteID), "summer", "winter"),
+         year = as.integer(substr(siteID, 10, 13)))
+```
+
+Here are results from running the Portal plant data through with 1000 draws from the feasible set and/or the METE ESF.
+
+## Overall
+
+```{r}
+
+all_analyses %>%
+  group_by(treatment, season) %>%
+  summarize(fs_low = mean(fs_percentile < .05),
+            mete_low = mean(mete_percentile < .05),
+            n = dplyr::n())
+```
+
+
+```{r}
+ggplot(all_analyses, aes(year, fs_percentile, color = treatment)) +
+  geom_line() +
+  facet_wrap(vars(season), scales = "free")
+
+
+ggplot(all_analyses, aes(year, mete_percentile, color = treatment)) +
+  geom_line() +
+  facet_wrap(vars(season), scales = "free")
+
+```
+
+Observations:
+
+- The FS percentile is often very very low. Some of this may relate to using only 1000 draws. 
+- Not a huge sample size here. You might consider doing it by plot.
+- There seems like there's some association sitewide by year. FS percentile ~ treatment + year. 
+- The gestalt is not that the e or r plots are wildly lower than the c plots. Rather they're all low.
+- One thing to explore would be whether it's more generally modulated by deltaSandN. I'm not totally sure how to do that. The recollection from these data in the lit is that the "shape" of the SAD was shown to differ most when S and N differed c vs x. Here, we control for changes in the statistical baseline due to changing S and N. 
+- I don't know that this really supports the notion that experimental manipulation --> deviations. Maybe look at the erodium invasion?
+- _Why are there only 9 years of data?_

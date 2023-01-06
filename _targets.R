@@ -24,7 +24,7 @@ options(clustermq.scheduler = "multiprocess")
 #tar_source()
 source(here::here("plants_targets", "R", "wf.R")) # Source other scripts as needed. # nolint
 
-nsites <- 50
+nsites <- 224 #all is 224
 
 data_files <- tibble(filename = list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = T)[1:nsites],
                      tarname = stringr::str_remove(list.files(("plants_targets/pre_pipeline/all_data_separate/"), full.names = F), ".csv")[1:nsites])
@@ -39,7 +39,7 @@ targets1 <- tarchetypes::tar_map(
   names = tarname
 )
 
-targets2 <- tarchetypes::tar_combine(name = all_analyses, targets1$analysis, command = bind_rows(!!!.x))
+targets2 <- tarchetypes::tar_combine(name = all_analyses, targets1$analysis, command = bind_rows(!!!.x, .id = "siteID"))
 
 
 list(targets1, targets2)
