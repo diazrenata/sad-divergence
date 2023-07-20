@@ -19,7 +19,14 @@ tiny_data = portal_timesteps_communities %>%
 write.csv(tiny_data, here::here("plants_targets", "pre_pipeline", "one_plant_data.csv"))
 
 
-for(thisID in unique(portal_timesteps_communities$siteID)) {
+portal_timesteps_communities_sv <- portal_timesteps_communities %>%
+  group_by(siteID) %>%
+  summarize(n = sum(abundance),
+            s= dplyr::n()) %>%
+  filter(s > 2,
+         n > (s + 1))
+
+for(thisID in unique(portal_timesteps_communities_sv$siteID)) {
   
   thisdat  = portal_timesteps_communities %>%
     filter(siteID== thisID)

@@ -52,3 +52,12 @@ Observations:
 - One thing to explore would be whether it's more generally modulated by deltaSandN. I'm not totally sure how to do that. The recollection from these data in the lit is that the "shape" of the SAD was shown to differ most when S and N differed c vs x. Here, we control for changes in the statistical baseline due to changing S and N. 
 - I don't know that this really supports the notion that experimental manipulation --> deviations. Maybe look at the erodium invasion?
 - _Why are there only 9 years of data?_
+
+
+## Next steps:
+
+- Run on more years of data
+- Dig into amount of change in S and N? The thinking there is...I don't know? Remembering Supp et al.
+- **Explore the theoretical side**. If I were doing this "properly" in MESS/EENS land I would do this in MESS land, but for efficiency's sake I think it may be preferable to do neutral simulations just within neutral theory in R.
+
+

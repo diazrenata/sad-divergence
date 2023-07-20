@@ -16,10 +16,15 @@ For a given dataset...
 
 ```{r}
 
-bird_sad <- read.csv(here::here("data", "bird_sad.csv"))
+bird_sad <- read.csv(here::here("data", "bird_sad.csv")) %>%
+  arrange(desc(n)) %>%
+  mutate(rank = dplyr::row_number())
 
 ggplot(bird_sad, aes(rank, n)) +
-  geom_line()
+  geom_line() +
+  ggtitle("Bird species abundance") +
+  xlab("Bird abundance (rank)") +
+  ylab("Abundance")
 
 s <- nrow(bird_sad)
 n <- sum(bird_sad$n)

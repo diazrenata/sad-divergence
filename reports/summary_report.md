@@ -96,7 +96,7 @@ ggplot(data, aes(experiment, fs_percentile, color = taxa)) +
   facet_wrap(vars(referenceID))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](summary_report_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
 ggplot(data, aes(experiment, mete_percentile, color = taxa)) +
@@ -104,7 +104,7 @@ ggplot(data, aes(experiment, mete_percentile, color = taxa)) +
   facet_wrap(vars(referenceID))
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
+![](summary_report_files/figure-gfm/unnamed-chunk-1-2.png)<!-- -->
 
 The prediction would be that experiment = 1 or experiment = 2 (natural
 or human-mediated manipulations; see Supp (2014) and metadata) would be
@@ -129,14 +129,14 @@ ggplot(data, aes(date, fs_percentile)) +
   geom_line() 
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](summary_report_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 ggplot(data, aes(date, mete_percentile)) +
   geom_line()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
+![](summary_report_files/figure-gfm/unnamed-chunk-2-2.png)<!-- -->
 
 The prediction would be that the reorganization dates (mid-1980s,
 mid-1990s, 2000, 2010) would show pronouncedly high or low percentile
