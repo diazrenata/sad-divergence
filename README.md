@@ -1,12 +1,21 @@
+
+
 SADs Divergence Report
 ================
 Renata Diaz
 July, 2023
 
+
+
+[![DOI](https://zenodo.org/badge/538686606.svg)](https://zenodo.org/badge/latestdoi/538686606)
+
+
+
 ## Context
 
 This is a summary of research conducted by Renata Diaz as part of NSF
 fellowship award DBI-2208901.
+
 
 ## Conceptual background
 
